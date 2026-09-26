@@ -1,4 +1,4 @@
-"""Read-only probe for Paperclip tools in the existing Assist pipeline."""
+"""Paperclip tools for the existing Assist pipeline."""
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant

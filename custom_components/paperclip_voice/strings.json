@@ -1,14 +1,30 @@
 {
-  "title": "Paperclip Voice Probe",
+  "title": "Paperclip Voice",
   "config": {
     "step": {
       "user": {
-        "title": "Activate Paperclip voice probe",
-        "description": "Enable a read-only marker tool for a text conversation check. This probe does not connect to Paperclip or create tasks."
+        "title": "Connect Paperclip Voice",
+        "data": {
+          "base_url": "Paperclip URL",
+          "company_id": "Company ID",
+          "token": "Scoped Paperclip token"
+        }
+      },
+      "reconfigure": {
+        "title": "Configure Paperclip Voice",
+        "description": "Add the scoped credential to the existing probe entry.",
+        "data": {
+          "base_url": "Paperclip URL",
+          "company_id": "Company ID",
+          "token": "Scoped Paperclip token"
+        }
       }
     },
     "abort": {
-      "already_configured": "The Paperclip voice probe is already configured."
+      "already_configured": "Paperclip Voice is already configured."
+    },
+    "error": {
+      "invalid_input": "Enter a base URL, company ID, and scoped token."
     }
   }
 }
