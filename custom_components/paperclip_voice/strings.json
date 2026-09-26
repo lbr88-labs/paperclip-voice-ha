@@ -1,0 +1,14 @@
+{
+  "title": "Paperclip Voice Probe",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Activate Paperclip voice probe",
+        "description": "Enable a read-only marker tool for a text conversation check. This probe does not connect to Paperclip or create tasks."
+      }
+    },
+    "abort": {
+      "already_configured": "The Paperclip voice probe is already configured."
+    }
+  }
+}
