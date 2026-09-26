@@ -6,6 +6,8 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.helpers.selector import TextSelector, TextSelectorConfig, TextSelectorType
 
+from .client import PAPERCLIP_ORIGIN
+
 DOMAIN = "paperclip_voice"
 
 
@@ -24,7 +26,7 @@ def _schema():
 def _normalize(user_input):
     url = user_input["base_url"].strip().rstrip("/")
     parsed = urlsplit(url)
-    if (parsed.scheme not in ("http", "https") or not parsed.netloc
+    if (url != PAPERCLIP_ORIGIN or parsed.scheme != "https" or not parsed.netloc
         or parsed.username or parsed.password or parsed.path not in ("", "/")
         or parsed.query or parsed.fragment):
         return None
