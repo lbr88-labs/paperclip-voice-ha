@@ -53,6 +53,27 @@ class StatusSummaryTests(unittest.TestCase):
         with self.assertRaises(client.PaperclipError):
             client.summarize_status({"error": "failed"}, [], "https://paperclip.example")
 
+    def test_company_status_uses_only_company_scoped_gets(self):
+        calls = []
+
+        async def get_json(hass, config, path):
+            calls.append(path)
+            return []
+
+        original = client._get_json
+        client._get_json = get_json
+        try:
+            config = client.PaperclipConfig(client.PAPERCLIP_ORIGIN, "company/id", "secret")
+            result = asyncio.run(client.company_status(None, config))
+        finally:
+            client._get_json = original
+        self.assertEqual(calls, [
+            "companies/company%2Fid/issues?status=todo,in_progress,blocked,in_review&limit=100",
+            "companies/company%2Fid/agents",
+        ])
+        self.assertEqual(result["working_now"], [])
+        self.assertNotIn(config.token, str(result))
+
     def test_wrong_origin_rejected_before_request(self):
         config = client.PaperclipConfig("http://paperclip.nyvej.it", "company", "secret")
         with self.assertRaisesRegex(client.PaperclipError, "settings are invalid"):
